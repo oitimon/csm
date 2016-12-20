@@ -64,6 +64,17 @@ trait System
                 $result = @fclose($fp) && $result;
             }
         }
+        return $this->finishSaveFile($result, $fullFileName, $mode);
+    }
+
+    /**
+     * @param bool $result
+     * @param string $fullFileName
+     * @param mixed $mode
+     * @return bool
+     */
+    protected function finishSaveFile($result, $fullFileName, $mode)
+    {
         return $result ? @chmod($fullFileName, $mode) : @unlink($fullFileName) && $result;
     }
 
