@@ -53,18 +53,18 @@ trait System
     protected function saveFile($path, $name, $content, $mode = 777)
     {
         $mode = octdec($mode);
+        $result = false;
         $fullFileName = $path.'/'.$name;
         $fp = @fopen($fullFileName, 'w');
-        $chainElement = ChainElement::start(strlen($content));
-        if ($fp !== false && $this->callWriteEvent($chainElement)) {
-            $result = $this->tryWriteResource($fp, $content, $chainElement);
-        } else {
-            $result = false;
+        if ($fp !== false) {
+            $chainElement = ChainElement::start(strlen($content));
+            if ($this->callWriteEvent($chainElement)) {
+                $result = $this->tryWriteResource($fp, $content, $chainElement);
+            } else {
+                $result = @fclose($fp) && $result;
+            }
         }
-        if (!$result && @is_file($fullFileName)) {
-            $result &= @unlink($fullFileName);
-        }
-        return $result !== false && @chmod($fullFileName, $mode);
+        return $result ? @chmod($fullFileName, $mode) : @unlink($fullFileName) && $result;
     }
 
     /**
