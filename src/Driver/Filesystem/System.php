@@ -54,13 +54,12 @@ trait System
     {
         $mode = octdec($mode);
         $fullFileName = $path.'/'.$name;
-        $result = false;
         $fp = @fopen($fullFileName, 'w');
-        if ($fp !== false) {
-            $chainElement = ChainElement::start(strlen($content));
-            if ($this->callWriteEvent($chainElement)) {
-                $result = $this->tryWriteResource($fp, $content, $chainElement);
-            }
+        $chainElement = ChainElement::start(strlen($content));
+        if ($fp !== false && $this->callWriteEvent($chainElement)) {
+            $result = $this->tryWriteResource($fp, $content, $chainElement);
+        } else {
+            $result = false;
         }
         if (!$result && @is_file($fullFileName)) {
             $result &= @unlink($fullFileName);
@@ -164,10 +163,7 @@ trait System
         $content = false;
         $chainSize = $this->getParam(static::PARAM_CHAIN_SIZE);
         while (!feof($fp)) {
-            if ($content === false) {
-                $content = '';
-            }
-            $content .= @fread($fp, $chainSize);
+            $content = (string)$content.@fread($fp, $chainSize);
             if (!$this->callReadEvent($chainElement->update(strlen($content)))) {
                 $content = false;
                 break;
