@@ -63,7 +63,7 @@ trait System
             }
         }
         if (!$result && @is_file($fullFileName)) {
-            @unlink($fullFileName);
+            $result &= @unlink($fullFileName);
         }
         return $result !== false && @chmod($fullFileName, $mode);
     }
@@ -205,4 +205,10 @@ trait System
      * @return string
      */
     abstract protected function getFullPath($startPath, array $dirs);
+
+    /**
+     * @param string $paramName
+     * @return mixed
+     */
+    abstract public function getParam($paramName);
 }

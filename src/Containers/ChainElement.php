@@ -35,7 +35,7 @@ class ChainElement implements Serializable
         $object = new static();
         $object->size = (int)$size;
         $object->bytesProceed = 0;
-        $object->completed = 0;
+        $object->completed = (float)0;
         return $object;
     }
 
@@ -47,7 +47,7 @@ class ChainElement implements Serializable
     {
         $this->bytesProceed = (int)$bytesProceed;
         if ($this->size > 0) {
-            $this->completed = $this->bytesProceed / $this->size;
+            $this->completed = (float)$this->bytesProceed / $this->size;
         }
         return $this;
     }
