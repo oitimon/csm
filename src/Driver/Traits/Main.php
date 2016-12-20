@@ -60,7 +60,7 @@ trait Main
             $this->params[static::PARAM_DIR_MODE]
         );
 
-        if (!$this->saveFile($path, $name, $content, $this->params[static::PARAM_DIR_MODE])) {
+        if (!$this->saveFile($path, $name, $content, $this->params[static::PARAM_FILE_MODE])) {
             $result = $this->generateError(
                 $this->params[static::PARAM_IS_STRICT],
                 sprintf('Can not save file %s', var_export(error_get_last(), true))

@@ -14,7 +14,7 @@ trait Helper
     {
         return array_merge([
             'resourcePath' => $this->getReourceDirPath(true),
-            'resourceUrl'  => '/test',
+            'resourceUrl'  => 'http://localhost/test',
         ], $moreParams);
     }
 
@@ -74,7 +74,8 @@ trait Helper
      */
     protected function getUrl($filename)
     {
-        return '/test/users/83/109/105/116/104/1e50/210a/0202/497f/b79b/c38b/6ade/6c34/18/99/0/'.$filename;
+        return 'http://localhost/test/users/83/109/105/116/104/1e50/210a/0202/497f/b79b/c38b/6ade/6c34/18/99/0/'
+            .$filename;
     }
 
     /**
@@ -82,14 +83,12 @@ trait Helper
      */
     protected function setUp()
     {
-        parent::setUp();
         mkdir($this->getReourceDirPath());
     }
 
     protected function tearDown()
     {
         $this->rrmdir($this->getReourceDirPath(true));
-        parent::tearDown();
     }
 
     /**

@@ -177,7 +177,7 @@ class CmsServiceTest extends \PHPUnit_Framework_TestCase
                 'main' => [
                     'type'         => Filesystem::class,
                     'resourcePath' => $this->getReourceDirPath(true),
-                    'resourceUrl'  => '/test'
+                    'resourceUrl'  => 'http://localhost/test'
                 ],
                 'all' => [
                     'readEvent' => function (ChainElement $chainElement) {

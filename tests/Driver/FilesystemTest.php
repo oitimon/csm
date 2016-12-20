@@ -51,7 +51,9 @@ class FilesystemTest extends \PHPUnit_Framework_TestCase
 
         // copy file (to same and other Ident)
         $this->assertTrue($driver->copy($this->getIdent(), $this->getIdent(), $this->getFilename(), '2.txt'));
+        $this->assertEquals($this->getContent(), $driver->get($this->getIdent(), '2.txt'));
         $this->assertTrue($driver->copy($this->getIdent(), $this->getIdent('next'), '2.txt'));
+        $this->assertEquals($this->getContent(), $driver->get($this->getIdent('next'), '2.txt'));
         $this->assertTrue($driver->copy($this->getIdent('next'), $this->getIdent('nextNext'), '2.txt', '3.txt'));
         $this->assertTrue($driver->isPresent($this->getIdent('nextNext'), '3.txt'));
 
