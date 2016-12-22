@@ -86,4 +86,17 @@ interface Driver
      * @return array
      */
     public function getParams();
+
+    /**
+     * @param string $paramName
+     * @return mixed
+     */
+    public function getParam($paramName);
+
+    /**
+     * @param string $paramName
+     * @param mixed $value
+     * @return void
+     */
+    public function setParam($paramName, $value);
 }
